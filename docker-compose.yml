@@ -12,7 +12,7 @@ services:
       GITEA__database__USER: gitea
       GITEA__database__PASSWD: gitea
     volumes:
-      - 'gitea-data:/data'
+      - './gitea_data:/data'
     ports:
       - '127.0.0.1:8300:3000'
     depends_on:
@@ -26,9 +26,4 @@ services:
       POSTGRES_PASSWORD: gitea
       POSTGRES_DB: gitea
     volumes:
-      - 'postgres-data:/var/lib/postgresql/data'
-
-volumes:
-  gitea-data:
-  postgres-data:
-
+      - './postgres_data:/var/lib/postgresql/data'
