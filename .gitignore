@@ -1,3 +1,4 @@
 /.env*
 /gitea_data
 /postgres_data
+/logs
