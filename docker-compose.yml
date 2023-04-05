@@ -12,7 +12,7 @@ services:
       GITEA__database__USER: gitea
       GITEA__database__PASSWD: gitea
     volumes:
-      - './gitea_data:/data'
+      - './volumes/gitea_data:/data'
     ports:
       - '127.0.0.1:8300:3000'
     depends_on:
@@ -26,4 +26,24 @@ services:
       POSTGRES_PASSWORD: gitea
       POSTGRES_DB: gitea
     volumes:
-      - './postgres_data:/var/lib/postgresql/data'
+      - './volumes/postgres_data:/var/lib/postgresql/data'
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    depends_on:
+      - gitea
+    volumes:
+      - ./nginx_templates:/etc/nginx/templates
+      - ${NGINX_LOG_DIR:-}:/logs
+    environment:
+      - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.nginx
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel run
+    restart: always
+    depends_on:
+      - nginx
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN:-}
