@@ -3,6 +3,11 @@ services:
   gitea:
     image: gitea/gitea:1.20
     restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: '2G'
     environment:
       USER_UID: 1000
       USER_GID: 1000
