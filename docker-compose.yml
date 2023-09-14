@@ -50,5 +50,6 @@ services:
     restart: always
     depends_on:
       - nginx
+      - gitea
     environment:
       TUNNEL_TOKEN: ${CLOUDFLARED_TUNNEL_TOKEN:-}
