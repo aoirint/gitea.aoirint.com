@@ -20,6 +20,11 @@ services:
       - './volumes/gitea_data:/data'
     depends_on:
       - postgres
+    logging:
+      driver: fluentd
+      options:
+        tag: docker.gitea_aoirint_com.gitea.{{.ID}}
+        fluentd-async: "true"
 
   postgres:
     image: postgres:14
@@ -43,6 +48,11 @@ services:
       - ${NGINX_LOG_DIR:-}:/logs
     environment:
       - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.nginx
+    logging:
+      driver: fluentd
+      options:
+        tag: docker.gitea_aoirint_com.nginx.{{.ID}}
+        fluentd-async: "true"
 
   cloudflared:
     image: cloudflare/cloudflared:latest
