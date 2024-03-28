@@ -1,6 +1,6 @@
 services:
   gitea:
-    image: gitea/gitea:1.21.9
+    image: gitea/gitea:1.21.10
     restart: always
     deploy:
       resources:
