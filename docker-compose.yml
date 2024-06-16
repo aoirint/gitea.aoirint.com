@@ -49,7 +49,6 @@ services:
       - '127.0.0.1:8300:80'
     volumes:
       - ./nginx_templates:/etc/nginx/templates
-      - ${NGINX_LOG_DIR:-}:/logs
     environment:
       - NGINX_ENVSUBST_TEMPLATE_SUFFIX=.nginx
     logging:
